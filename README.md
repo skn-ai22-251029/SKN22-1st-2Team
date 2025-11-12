@@ -4,6 +4,9 @@ Repository for SKN22-1st-2Team
 ## ✅ Dev Environment
 - **Python**: 3.13.9
 - **Conda env**: `grilled_kim`
+  - install pakage
+    - pyyaml
+    - requests
 - **Database**: MySQL (스키마 및 테이블 구성은 `/repository/schema.sql` 참고 예정)
 
 ---
@@ -52,28 +55,28 @@ Repository for SKN22-1st-2Team
                                   ▼
                        ┌───────────────────┐
                        │ api_service.py    │
-                       │  - API 데이터 수집 │
-                       │  - 데이터 정제     │
+                       │  - API 데이터 수집   │
+                       │  - 데이터 정제       │
                        └──────────┬────────┘
                                   │ 정제된 데이터
                                   ▼
                       ┌───────────────────────┐
-                      │   MySQL Database       │
-                      │  ev_charger_db         │
+                      │   MySQL Database      │
+                      │   ev_charger_db       │
                       └──────┬────────────────┘
                              │ SQL 조회/저장
                              ▼
          ┌──────────────────────────────┬────────────────────────────────┐
          │                              │                                │
 ┌────────────────┐       ┌──────────────────────┐        ┌─────────────────────┐
-│ charger_repo.py│       │ charger_service.py  │        │ stats_service.py     │
-│  DB 조회/저장   │       │ 비즈니스 로직 처리  │        │ 통계/집계/분석       │
+│ charger_repo.py│       │ charger_service.py   │        │ stats_service.py    │
+│  DB 조회/저장    │       │ 비즈니스 로직 처리        │        │ 통계/집계/분석         │
 └────────────────┘       └──────────────────────┘        └─────────────────────┘
          │                              │                                │
-         └──────────────────────────────┴──────────────────────────────┐
-                                                                        │
-                                                                UI 렌더링
-                                                                        │
+         └──────────────────────────────┴────────────────────────────────┐
+                                                                         │
+                                                                       UI 렌더링
+                                                                         │
                                                       ┌────────────────────────────────┐
                                                       │          Streamlit UI          │
                                                       │ app.py + pages/*.py            │
