@@ -1,7 +1,0 @@
-API_BASE_URL=http://apis.data.go.kr/B552584/EvCharger/
-API_KEY=a5a50fb6d66e08b45751685969b99724a67f631cd9cf8e1b8ee4e9767baa45a5
-
-DB_HOST=localhost
-DB_USER=skn22
-DB_PASSWORD=skn22
-DB_NAME=grilled_kim
