@@ -2,3 +2,4 @@ python-dotenv
 requests
 beautifulsoup4
 schedule
+streamlit-js-eval
