@@ -1,4 +1,12 @@
-# {
-    # 'busiId': 'ME', 'statId': 'ME174013', 'chgerId': '01', 'stat': '2', 
-    # 'statUpdDt': '20251113171659', 'lastTsdt': '20251113083818', 'lastTedt': '20251113090443', 'nowTsdt': ''
-# }
+from dataclasses import dataclass
+from typing import Optional
+
+class ChargerStatDto:
+    busiId       :Optional[str]=None
+    statId   :Optional[str]=None
+    chgerId   :Optional[str]=None
+    stat   :Optional[str]=None
+    statUpdDt   :Optional[str]=None
+    lastTsdt   :Optional[str]=None
+    lastTedt   :Optional[str]=None
+    nowTsdt   :Optional[str]=None
