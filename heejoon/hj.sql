@@ -1,18 +1,14 @@
 select
+    C.region '지역명',
+    B.station_id '충전소 번호',
+    A.member_price '멤버 적용가',
     
+    A.guest_price '일반고객 적용가'
+   
 from
-    charger_station A join charger_status B
-        on A.station_id = B.station_id join charger_detail C
-            on B.charger_id = C.charger_id join charger_meta D
-                on C.charger_type = D.charger_type
-where
-    case 
-        when D.charger_type = '01' then;
+    charge_price A join charger_station B
+        on A.operator_code = B.operator_id join area_code_master C
+            on B.zscode = C.zscode
 
-select
-    description
-from
-    charger_meta
-where
-    charger_type in ('01','02','03','04','05','06','07','08','09','10','11');
-
+group by
+   C.zscode;
