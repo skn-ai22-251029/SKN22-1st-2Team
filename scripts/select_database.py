@@ -3,6 +3,7 @@ from models import charger_station
 from models.charger_detail import Charger_detail
 from models.charger_station import Charger_station
 from models.charger_status import Charger_status
+from models.charge_price import ChargePrice
 from repository.db import get_connection
 
 
@@ -66,6 +67,27 @@ def get_charger_status(id: str = ""):
                     status.append(Charger_status(*data))
 
                 return status
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)
+
+# 요금 정보 가져오기
+def get_charger_price(operator_code: str = ""):
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+            select *
+              from charge_price
+             where operator_code = %s
+                """
+            try:
+                cursor.execute(sql, [operator_code,])
+                datas = cursor.fetchall()
+                prices = []
+                for data in datas:
+                    prices.append(ChargePrice(*data))
+
+                return prices
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)

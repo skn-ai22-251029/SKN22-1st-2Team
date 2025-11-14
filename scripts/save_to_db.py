@@ -112,13 +112,12 @@ def save_charger_price(charge_price: ChargePrice):
             insert into 
                         charge_price 
             values (
-                %s, %s, %s, %s, %s, %s, %s)
+                %s, %s, %s, %s, %s, %s, %s,%s)
             ON DUPLICATE KEY UPDATE
-                    member_price=%s
-                    upd_dt      = NOW()
+                    guest_price=%s,
+                    update_dt=now()
             """
-
-            params = (*charge_price, charge_price[4])
+            params =(*charge_price.as_tuple(),charge_price.guest_price)
             try:
                 cursor.execute(sql, params)
                 conn.commit()

@@ -124,17 +124,17 @@ CREATE INDEX idx_status_state ON charger_status(stat);
 -- 8. 요금 정보 테이블
 -- ==========================================
 CREATE TABLE charge_price (
-    operator_code VARCHAR(20) NOT NULL,
     operator_name VARCHAR(100) NOT NULL,
+    rnum DECIMAL(10,2),
+    price_type_name VARCHAR(20)  ,
+    update_dt DATETIME DEFAULT CURRENT_TIMESTAMP,
     price_type_code VARCHAR(10) NOT NULL,
-    price_type_name VARCHAR(20) NOT NULL,
-    member_price DECIMAL(10,2) NOT NULL,
-    guest_price DECIMAL(10,2) NOT NULL,
-    update_dt DATE NOT NULL,
+    member_price VARCHAR(20)  ,
+    operator_code VARCHAR(20) NOT NULL,
+    guest_price VARCHAR(20) NOT NULL,
 
     PRIMARY KEY (operator_code, price_type_code)
 );
-
 # 충전 단자 코드
 INSERT INTO charger_meta VALUES
 ('01', 'DC차데모'),
