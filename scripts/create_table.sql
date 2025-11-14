@@ -131,7 +131,9 @@ INSERT INTO charger_meta VALUES
 ('07', 'AC3상'),
 ('08', 'DC콤보(완속)'),
 ('09', 'NACS'),
-('10', 'DC콤보+NACS');
+('10', 'DC콤보+NACS'),
+('11', 'DC콤보2(버스전용)');
+
 
 # 지역코드
 INSERT INTO area_code_master (zcode, zscode, region, sub_region) VALUES
