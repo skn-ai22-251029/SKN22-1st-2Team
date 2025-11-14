@@ -10,7 +10,6 @@ from scripts.save_to_db import save_charger_detail, save_charger_status, save_st
 
 def job():
     getAPI = EVChargerAPI()
-    
     chargers_info = getAPI.get_charger_info()
 
     if chargers_info:
@@ -44,8 +43,3 @@ def job():
             print("[DETAIL]", detail.station_id, detail.charger_id, detail.stat)
             save_charger_detail(detail)    
 
-schedule.every(30).minutes.do(job)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
