@@ -1,6 +1,6 @@
 import streamlit as st
 import layout
-from services.get_charge_price import scrapping_charge_price
+from services.price.get_charge_price import scrapping_charge_price
 
 layout.base_layout()
 

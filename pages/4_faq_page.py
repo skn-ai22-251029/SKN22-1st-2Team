@@ -1,4 +1,4 @@
-from services import faq
+from services.faq import faq
 import streamlit as st
 import layout
 import math

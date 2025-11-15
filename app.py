@@ -14,7 +14,7 @@ from streamlit_js_eval import get_geolocation
 import threading
 import time
 import schedule
-from scripts.select_database import get_charger_station
+from services.charger_station.select_charger_station import select_charger_station
 from services.scheduler import job
 
 layout.base_layout()
@@ -38,7 +38,7 @@ if loc:
         icon=folium.Icon(color="red", icon="user"),
     ).add_to(m)
 
-    datas = get_charger_station()
+    datas = select_charger_station()
 
     charger_data = [
         {"name": d.station_name, "lat": d.lat, "lng": d.lng}
