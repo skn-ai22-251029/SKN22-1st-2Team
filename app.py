@@ -14,7 +14,7 @@ from streamlit_js_eval import get_geolocation
 import threading
 import time
 import schedule
-from services.charger_station.select_charger_station import select_charger_station
+from services.charger_station.select_charger_station import select_charger_station, select_charger_station_location
 from services.scheduler import job
 
 layout.base_layout()
@@ -25,21 +25,20 @@ loc = get_geolocation()
 if loc:
     # 지도 변수/상수
     MY_LAT = float(loc["coords"]["latitude"])
-    MY_LON = float(loc["coords"]["longitude"])
+    MY_LNG = float(loc["coords"]["longitude"])
 
     # Folium 지도 객체 생성
-    m = folium.Map(location=[MY_LAT, MY_LON], zoom_start=13)
+    m = folium.Map(location=[MY_LAT, MY_LNG], zoom_start=13)
 
     # 내 위치 마커
     folium.Marker(
-        [MY_LAT, MY_LON],
+        [MY_LAT, MY_LNG],
         popup="📍 내 위치",
         tooltip="현재 위치",
         icon=folium.Icon(color="red", icon="user"),
     ).add_to(m)
 
-    datas = select_charger_station()
-
+    datas = select_charger_station_location(MY_LAT, MY_LNG)
     charger_data = [
         {"name": d.station_name, "lat": d.lat, "lng": d.lng}
         for d in datas or []
