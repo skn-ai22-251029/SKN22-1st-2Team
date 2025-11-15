@@ -1,5 +1,6 @@
 # scripts/update_data.py
 import os
+import time
 import traceback
 from typing import Dict, List, Optional, Union
 import requests
@@ -50,10 +51,10 @@ class EVChargerAPI:
         Returns:
             Optional[List[ChargerInfoDTo]]: 충전기 정보 DTO 리스트
         """
-
+        
         params : Dict[str, Union[str, int]] = {
             "pageNo": 1,
-            "numOfRows": 10,
+            "numOfRows": 99,
             "dataType": "JSON",
         }
         if sta_id:
@@ -82,7 +83,7 @@ class EVChargerAPI:
         """
         params: Dict[str, Union[str, int]] = {
             "pageNo": 1,
-            "numOfRows": 10,
+            "numOfRows": 99,
             "dataType": "JSON",
         }
         if sta_id:
@@ -95,6 +96,64 @@ class EVChargerAPI:
         if result:
             return [ChargerStatDto(**item) for item in result]
         return None
+
+
+    # ----------------------------
+    # 전체 조회 (페이지네이션)
+    # ----------------------------
+    def get_all_charger_info(self) -> List[ChargerInfoDTo]:
+        """모든 충전소 정보 전체 조회"""
+        all_items = []
+        page = 1
+
+        while True:
+            params = {
+                "pageNo": page,
+                "numOfRows": 99,
+                "dataType": "JSON",
+            }
+            result = self._get("getChargerInfo", params)
+            if not result:
+                break
+
+            def clean_null(v): return None if v == "null" else v
+            cleaned = [{k: clean_null(v) for k, v in item.items()} for item in result]
+            all_items.extend([ChargerInfoDTo(**item) for item in cleaned])
+
+            print(f"[INFO] ChargerInfo - 페이지 {page} 수집 완료 ({len(result)}건)")
+            if len(result) < 99:
+                break  # 마지막 페이지 도달
+            page += 1
+            time.sleep(0.2)  # API RateLimit 방지
+
+        print(f"[완료] 총 {len(all_items)}개 충전소 정보 수집 완료 ✅")
+        return all_items
+
+    def get_all_charger_status(self) -> List[ChargerStatDto]:
+        """모든 충전기 상태 전체 조회"""
+        all_items = []
+        page = 1
+
+        while True:
+            params = {
+                "pageNo": page,
+                "numOfRows": 99,
+                "dataType": "JSON",
+            }
+            result = self._get("getChargerStatus", params)
+            if not result:
+                break
+
+            all_items.extend([ChargerStatDto(**item) for item in result])
+
+            print(f"[INFO] ChargerStatus - 페이지 {page} 수집 완료 ({len(result)}건)")
+            if len(result) < 99:
+                break
+            page += 1
+            time.sleep(0.2)
+
+        print(f"[완료] 총 {len(all_items)}개 충전기 상태 수집 완료 ✅")
+        return all_items
 
 if __name__ == "__main__":
     api = EVChargerAPI()
