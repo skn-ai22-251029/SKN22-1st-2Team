@@ -23,3 +23,23 @@ def select_charger_detail(id: str = ""):
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)
+
+
+def select_all_charger_detail():
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+            select *
+              from charger_detail
+                            """
+            try:
+                cursor.execute(sql)
+                datas = cursor.fetchall()
+                detail = []
+                for data in datas:
+                    detail.append(Charger_detail(*data))
+
+                return detail
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)

@@ -24,3 +24,23 @@ def select_charger_price(operator_code: str = ""):
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)
+
+def select_charger_price():
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+            select *
+              from charge_price
+             
+                """
+            try:
+                cursor.execute(sql)
+                datas = cursor.fetchall()
+                prices = []
+                for data in datas:
+                    prices.append(ChargePrice(*data))
+
+                return prices
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)

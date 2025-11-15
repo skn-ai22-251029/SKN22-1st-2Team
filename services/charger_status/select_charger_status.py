@@ -23,3 +23,22 @@ def select_charger_status(id: str = ""):
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)
+
+def select_all_charger_status():
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+            select *
+              from charger_status
+                """
+            try:
+                cursor.execute(sql)
+                datas = cursor.fetchall()
+                status = []
+                for data in datas:
+                    status.append(Charger_status(*data))
+
+                return status
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)
