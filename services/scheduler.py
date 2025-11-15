@@ -10,7 +10,11 @@ from scripts.save_to_db import save_charger_detail, save_charger_status, save_st
 
 def job():
     getAPI = EVChargerAPI()
+    # 일부 정보 조회
     chargers_info = getAPI.get_charger_info()
+    
+    # 전체 정보 조회
+    # chargers_info = getAPI.get_all_charger_info()
 
     if chargers_info:
         stations = [Charger_station.from_dto(dto) for dto in chargers_info]
@@ -18,8 +22,12 @@ def job():
             print(station)
             save_station(station)
 
-
+    # 일부 정보 조회
     chargers_status_dtos = getAPI.get_charger_status()
+    
+    # 전체 정보 조회
+    # chargers_status_dtos = getAPI.get_all_charger_status()
+    
     if chargers_status_dtos:
         chargers_status = [Charger_status.from_dto(dto) for dto in chargers_status_dtos]
 

@@ -1,4 +1,5 @@
 import traceback
+from typing import Optional
 from models import charger_station
 from models.charger_detail import Charger_detail
 from models.charger_station import Charger_station
@@ -7,7 +8,7 @@ from models.charge_price import ChargePrice
 from repository.db import get_connection
 
 
-def get_charger_station(id: str = ""):
+def get_charger_station(id: str = "") -> Optional[list]:
     with get_connection() as conn:
         with conn.cursor() as cursor:
             sql = """
