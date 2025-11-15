@@ -56,3 +56,22 @@ def select_charger_station_location(lat: float, lng: float) -> Optional[list]:
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)
+
+def select_all_charger_station() :
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+            select *
+              from charger_station
+"""
+            try:
+                cursor.execute(sql)
+                datas = cursor.fetchall()
+                stations = []
+                for data in datas:
+                    stations.append(Charger_station(*data))
+
+                return stations
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)
