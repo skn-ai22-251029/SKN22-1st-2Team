@@ -1,0 +1,10 @@
+충전소 정보 추가(주차비 무료/ 층 안내)
+충전기 상태에 사용 가능한 예상 시간 추가
+charger_type 불러오기 위해 services.scheduler.py 내용 추가
+services.charger_detail에 select_charger_detail_by_charger_id.py 추가
+
+요금비교 페이지 추가
+- 보유하고 있는 테이블의 구조 수정 불가로(시간이 모자라서..)
+제대로 구현 못함..
+pages.2_diff_charge.py 에 페이지 내용 추가(st.title 앞에 이모지는 왜 표시가 안되는지 모르겠음)
+services.price.select_charge_price.py에 select_price_by_region()등 추가
