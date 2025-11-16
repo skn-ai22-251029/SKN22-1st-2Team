@@ -140,3 +140,6 @@ Repository for SKN22-1st-2Team
     ├── 📄 create_database.sql         💬 db생성 및 권한 처리
     └── 📄 create_table.sql              💬 데이터 테이블 생성 
 
+<img width="1900" height="2140" alt="Untitled diagram-2025-11-16-132038" src="https://github.com/user-attachments/assets/6a39534d-ebb9-48ca-b56d-1cec09c198d2" />
+
+
