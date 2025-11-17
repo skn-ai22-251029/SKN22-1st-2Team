@@ -68,7 +68,7 @@ def select_all_charger_station():
             sql = """
             select *
               from charger_station
-"""
+            """
             try:
                 cursor.execute(sql)
                 datas = cursor.fetchall()
@@ -80,3 +80,31 @@ def select_all_charger_station():
             except Exception as e:
                 print(e)
                 print(traceback.format_exception)
+
+def select_available_regions():
+    """
+    charger_station과 area_code_master를 zcode로 join하여
+    area_code_master에 존재하는 지역명만 반환합니다.
+    반환값: ['서울특별시', '부산광역시', ...]
+    """
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            sql = """
+                select
+                    zcode, region
+                from 
+                    area_code_master
+                group by
+                    zcode, region
+            """
+            try:
+                cursor.execute(sql)
+                rows=[]
+                rows = cursor.fetchall()
+                for a in cursor:
+                    rows.append(dict(a))
+                return rows
+            except Exception as e:
+                print(e)
+                print(traceback.format_exception)
+                return []

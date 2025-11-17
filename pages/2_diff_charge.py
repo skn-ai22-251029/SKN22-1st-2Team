@@ -1,12 +1,8 @@
 import streamlit as st
 import pandas as pd
-from services.price.get_charge_price import scrapping_charge_price
-from services.price.select_charge_price import (
-    select_all_charger_price,
-    select_price_by_region,
-    select_price_by_station,
-)
-from services.charger_station.select_charger_station import select_all_charger_station
+from services.price.select_charge_price import select_price_by_region
+from services.charger_station.select_charger_station import select_available_regions
+
 import layout
 
 layout.base_layout()
@@ -16,19 +12,12 @@ st.title("💾요금 비교 페이지")
 # ===== 지역별 요금 비교 =====
 st.subheader("지역을 선택하여 요금을 비교하세요")
 
-# 모든 충전소에서 지역 추출
-all_stations = select_all_charger_station() or []
-regions = set()
-
-for station in all_stations:
-    addr = getattr(station, 'addr', '')
-    if addr:
-        region = addr.split()[0]  # 첫 번째 단어 (시도)
-        regions.add(region)
-
-regions = sorted(list(regions))
+# 모든 충전소에서 지역 추출 (area_code_master에 정의된 지역만 사용)
+regions = select_available_regions() or []
 
 if regions:
+    print(regions, type(regions))
+
     selected_region = st.selectbox(
         "지역 선택",
         options=regions,
