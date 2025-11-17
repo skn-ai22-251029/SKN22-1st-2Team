@@ -96,13 +96,14 @@ def select_available_regions():
                     area_code_master
                 group by
                     zcode, region
+                order by region
             """
             try:
                 cursor.execute(sql)
                 rows=[]
                 rows = cursor.fetchall()
                 for a in cursor:
-                    rows.append(dict(a))
+                    rows.append(a)
                 return rows
             except Exception as e:
                 print(e)

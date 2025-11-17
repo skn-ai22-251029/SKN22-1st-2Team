@@ -16,14 +16,15 @@ st.subheader("지역을 선택하여 요금을 비교하세요")
 regions = select_available_regions() or []
 
 if regions:
-    print(regions, type(regions))
+    regions_code, regions_name = zip(*regions)
 
     selected_region = st.selectbox(
         "지역 선택",
-        options=regions,
+        options=regions_name,
         key="region_select"
     )
-    
+    print("-" * 100)
+    print(selected_region)
     if selected_region:
         # 선택 지역의 요금 조회 (busi_id 기준 매칭)
         region_prices = select_price_by_region(selected_region)
